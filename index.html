@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="img/favicon-32.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <title>Web #1</title>
+    <style>
+        body {
+            font-size: 15px;
+            font-family: monospace, monospace;
+            background-color: #281545;
+            background-image: url("img/bg.jpg");
+        }
+
+        #main-grid {
+            width: 90%;
+            margin: auto;
+            border-spacing: 0.8em;
+
+        }
+
+        #table-plate {
+            width: 50%;
+            background-color: #605f5f;
+        }
+
+        #header-plate {
+            padding: 1em 30px;
+            font-size: 25px;
+            color: #ffffff;
+            background-color: #3c3c3c;
+        }
+
+        .content-plate {
+            padding: 0 0 20px;
+            vertical-align: top;
+            background-color: #ffffff;
+        }
+
+        .plate-top {
+            display: inline-block;
+            width: 100%;
+            margin: 0;
+            margin-bottom: 20px;
+            padding: 0em 0;
+            text-align: center;
+            color: #ffffff;
+            background-color: #3c3c3c;
+        }
+
+        .plate-top-title {
+            font-size: 18px;
+            font-weight: normal;
+        }
+
+        .image-container {
+            text-align: center;
+        }
+
+        #input-grid {
+            width: 95%;
+            margin: auto;
+            text-align: center;
+        }
+
+        .input-grid-label {
+            width: 12%;
+            font-weight: bold;
+        }
+        #y-textinput {
+            width: 75%;
+            height: 20px;
+            margin: 2% 0;
+        }
+
+        .text-error {
+            border: 1px solid #ff0000;
+        }
+
+        .box-error {
+            color: #ff0000;
+        }
+
+        .text-error::placeholder {
+            color: #ff0000;
+        }
+
+        .form-subtext {
+            padding-bottom: 2%;
+            font-size: 14px;
+        }
+
+        .center-labeled {
+            display: inline-block;
+            position: relative;
+            margin: 0 1% 5%;
+            font-size: 14px;
+        }
+
+        .center-labeled label {
+            position: absolute;
+            top: 18px;
+            left: 6px;
+        }
+
+        .center-labeled .float-labeled {
+            left: 0;
+        }
+
+        .center-labeled .add-labeled {
+            left: 7px;
+        }
+
+        .buttons {
+            margin-top: 3%;
+        }
+
+        .buttons::before {
+            content: "";
+            display: block;
+            height: 2px;
+            width: 60px;
+            margin: 0 auto 4%;
+            background-color: #6c43af;
+        }
+
+        .button {
+            height: 27px;
+            width: 70px;
+            font-family: "Open Sans", "Arial", sans-serif;
+            color: #ffffff;
+            background-color: #6c43af;
+            border: none;
+        }
+
+        .button:hover {
+            background-color: #513284;
+        }
+
+        #table-plate {
+            position: relative;
+        }
+
+        .scroll-container {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            top: 54px;
+            width: 100%;
+            overflow-y: scroll;
+        }
+
+        #result-table {
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        #result-table tr {
+            height: 2em;
+        }
+
+        #result-table tr:nth-child(2n-1) {
+            background-color: #c8b5e9;
+        }
+
+        #result-table tr:nth-child(2n):hover {
+            background-color: #e9e9e9;
+        }
+
+        #result-table tr:nth-child(2n-1):hover {
+            background-color: #bbaad8;
+        }
+
+        #result-table tr.table-header:hover {
+            background-color: #c8b5e9;
+        }
+
+        .coords-col {
+            width: 12%;
+        }
+
+        .time-col {
+            width: 25%;
+        }
+
+        .left-aligned {
+            float: left;
+        }
+
+        .right-aligned {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<table id="main-grid">
+    <tr>
+        <!-- Header -->
+        <td id="header-plate" colspan="2">
+            <span class="left-aligned">Терновский Илья (P32302)</span>
+            <span class="right-aligned">Вариант 3317</span>
+        </td>
+    </tr>
+
+    <tr>
+        <!-- Graph -->
+        <td class="content-plate" id="graph-plate">
+            <div class="plate-top">
+                <h2 class="plate-top-title">Координатная плоскость</h2>
+            </div>
+
+            <div class="image-container">
+                <object type="image/svg+xml" data="img/graph.svg"><img src="img/graph-purple.png"></object>
+            </div>
+        </td>
+        <!-- Table -->
+        <td class="content-plate" id="table-plate" rowspan="2">
+            <div class="plate-top">
+                <h2 class="plate-top-title">Результат</h2>
+            </div>
+
+            <div class="scroll-container">
+                <table id="result-table">
+                    <tr class="table-header">
+                        <th class="coords-col">X</th>
+                        <th class="coords-col">Y</th>
+                        <th class="coords-col">R</th>
+                        <th class="time-col">Время</th>
+                        <th class="time-col">Время выполнения</th>
+                        <th class="hitres-col">Результат</th>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <!-- Values -->
+        <td class="content-plate" id="values-plate">
+            <div class="plate-top">
+                <h2 class="plate-top-title">Значения</h2>
+            </div>
+
+            <form id="input-form" action="" method="POST">
+                <table id="input-grid">
+                    <!-- X Value -->
+                    <tr>
+                        <td class="input-grid-label">
+                            <label>X:</label>
+                        </td>
+
+                        <td class="input-grid-value x-radio-group">
+                            <div class="center-labeled">
+                                <label class="xbox-label" for="x-radio1">-3</label>
+                                <input class="x-radio" id="x-radio1" type="radio" name="xval" value="-3">
+                            </div>
+
+                            <div class="center-labeled">
+                                <label class="xbox-label" for="x-radio2">-2</label>
+                                <input class="x-radio" id="x-radio2" type="radio" name="xval" value="-2">
+                            </div>
+
+                            <div class="center-labeled">
+                                <label class="xbox-label" for="x-radio3">-1</label>
+                                <input class="x-radio" id="x-radio3" type="radio" name="xval" value="-1">
+                            </div>
+
+                            <div class="center-labeled">
+                                <label class="add-labeled xbox-label" for="x-radio4">0</label>
+                                <input class="x-radio" id="x-radio4" type="radio" name="xval" value="0">
+                            </div>
+
+                            <div class="center-labeled">
+                                <label class="add-labeled xbox-label" for="x-radio5">1</label>
+                                <input class="x-radio" id="x-radio5" type="radio" name="xval" value="1">
+                            </div>
+
+                            <div class="center-labeled">
+                                <label class="add-labeled xbox-label" for="x-radio6">2</label>
+                                <input class="x-radio" id="x-radio6" type="radio" name="xval" value="2">
+                            </div>
+
+                            <div class="center-labeled">
+                                <label class="add-labeled xbox-label" for="x-radio7">3</label>
+                                <input class="x-radio" id="x-radio7" type="radio" name="xval" value="3">
+                            </div>
+
+                            <div class="center-labeled">
+                                <label class="add-labeled xbox-label" for="x-radio8">4</label>
+                                <input class="x-radio" id="x-radio8" type="radio" name="xval" value="4">
+                            </div>
+
+                            <div class="center-labeled">
+                                <label class="add-labeled xbox-label" for="x-radio9">5</label>
+                                <input class="x-radio" id="x-radio9" type="radio" name="xval" value="5">
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Y Value -->
+                    <tr>
+                        <td class="input-grid-label">
+                            <label for="y-textinput">Y:</label>
+                        </td>
+
+                        <td class="input-grid-value">
+                            <input id="y-textinput" type="text" name="yval" maxlength="10" autocomplete="off" placeholder="Number from -5 to 5...">
+                        </td>
+                    </tr>
+
+                    <!-- R Value -->
+                    <tr>
+                        <td class="input-grid-label">
+                            <label>R:</label>
+                        </td>
+
+                        <td class="input-grid-value">
+                            <div class="center-labeled">
+                                <label class="rbox-label" for="r-checkbox1">1</label>
+                                <input class="r-checkbox" id="r-checkbox1" type="checkbox" name="rval" value="1">
+                            </div>
+
+                            <div class="center-labeled">
+                                <label class="float-labeled rbox-label" for="r-checkbox2">1.5</label>
+                                <input class="r-checkbox" id="r-checkbox2" type="checkbox" name="rval" value="1.5">
+                            </div>
+
+                            <div class="center-labeled">
+                                <label class="rbox-label" for="r-checkbox3">2</label>
+                                <input class="r-checkbox" id="r-checkbox3" type="checkbox" name="rval" value="2">
+                            </div>
+
+                            <div class="center-labeled">
+                                <label class="float-labeled rbox-label" for="r-checkbox4">2.5</label>
+                                <input class="r-checkbox" id="r-checkbox4" type="checkbox" name="rval" value="2.5">
+                            </div>
+
+                            <div class="center-labeled">
+                                <label class="rbox-label" for="r-checkbox5">3</label>
+                                <input class="r-checkbox" id="r-checkbox5" type="checkbox" name="rval" value="3">
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Buttons -->
+                    <tr>
+                        <td colspan="2">
+                            <div class="buttons">
+                                <input class="button" type="submit" value="Submit">
+                                <input class="button" type="reset" value="Reset">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+
+</html>
