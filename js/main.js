@@ -61,12 +61,12 @@ function sendRequest(data){
     let Y_MIN = -3;
     let y_val = document.getElementById('y-text-input').value;
     let float_y_val = parseFloat(Number(y_val));
-    let hiddenBox = $( ".y-error-box" );
     if (isFloat(y_val) && float_y_val <= Y_MAX && float_y_val >= Y_MIN){
-      hiddenBox.hide();
+
+      $( ".y-error-box" ).hide();
       return true
     }else {
-      hiddenBox.show();
+      $( ".y-error-box" ).show();
     }
   }
 
@@ -76,13 +76,12 @@ function sendRequest(data){
     let R_MIN = 1;
     let r_val = document.getElementById('r-text-input').value;
     let int_r_val = parseInt(Number(r_val));
-    let hiddenBox = $( ".r-error-box" );
 
     if (isInt(r_val) && int_r_val <= R_MAX && int_r_val >= R_MIN) {
-      hiddenBox.hide();
+      $( ".r-error-box" ).hide();
       return true
     } else {
-      hiddenBox.show();
+      $( ".r-error-box" ).show();
     }
   }
   
