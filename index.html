@@ -27,6 +27,7 @@
         }
 
         #header-plate {
+            font-family: fantasy;
             padding: 1em 30px;
             font-size: 25px;
             color: #ffffff;
@@ -95,38 +96,17 @@
             display: none;
         }
 
-
-        .form-subtext {
-            padding-bottom: 2%;
-            font-size: 14px;
-        }
-
-        .center-labeled {
-            display: inline-block;
-            position: relative;
-            margin: 0 1% 5%;
-            font-size: 14px;
-        }
-
         .center-labeled label {
             position: absolute;
             top: 18px;
             left: 6px;
         }
 
-        .center-labeled .float-labeled {
-            left: 0;
-        }
-
-        .center-labeled .add-labeled {
-            left: 7px;
-        }
-
         .buttons {
             margin-top: 5%;
         }
 
-
+        /* Glow buttons */
         .glow-on-hover {
             width: 200px;
             height: 40px;
@@ -234,7 +214,6 @@
             color: #da2d2d;
         }
         .green{
-            border-radius: 3px;
             color: #1bf110;
         }
     </style>
@@ -257,7 +236,7 @@
             </div>
 
             <div class="image-container">
-                <img src="img/graph.png" id="example">
+                <img src="img/graph.png" id="example" alt="здесь должен быть график(">
             </div>
         </td>
         <!-- Table -->
@@ -322,7 +301,7 @@
                     <tr>
                         <td></td>
                         <td>
-                            <div class="y-error-box">y должен быть числом от -3 до 5</div>
+                            <div class="y-error-box">Y должен быть числом от -3 до 5</div>
                         </td>
                     </tr>
 
@@ -339,7 +318,7 @@
                     <tr>
                         <td></td>
                         <td>
-                            <div class="r-error-box">x должен быть целочисленным числом от 1 до 4</div>
+                            <div class="r-error-box">R должен быть целочисленным числом от 1 до 4</div>
                         </td>
                     </tr>
 
@@ -349,6 +328,14 @@
                             <div class="buttons">
                                 <button class="glow-on-hover" type="submit" value="Submit">Submit</button>
                                 <button class="glow-on-hover" type="reset" value="Reset">Reset</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div>
+                                <input class="specialCB" type="checkbox" id="experimental" name="123">
+                                <label for="experimental">Use experimental hit check</label>
                             </div>
                         </td>
                     </tr>
