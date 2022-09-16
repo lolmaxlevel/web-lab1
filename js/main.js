@@ -29,9 +29,9 @@ function sendRequest(data){
     var pos = findPos(this);
     var x = e.pageX - pos.x;
     var y = e.pageY - pos.y;
-    if (!validateR()) return;
-    let r_val = document.getElementById('r-text-input').value
     let experimental = $('.specialCB:checked').val();
+    if (!(experimental || validateR())) return;
+    let r_val = document.getElementById('r-text-input').value
     let normalized_x = ((x - 23 - 80) / 80) * r_val;
     let normalized_y = -((y - 25 - 80) / 80) * r_val;
     let data= {
