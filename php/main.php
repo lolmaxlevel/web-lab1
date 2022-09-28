@@ -37,17 +37,17 @@ if ($_POST['type'] == 'experimental'){
     $pixel = imagecolorat($img, $xVal,$yVal);
     $colors = imagecolorsforindex($img, $pixel);
     $r = ($pixel >> 16) & 0xFF;
-    $isHit = $r == 255 ? 0:1;
+    $result = $r == 255 ? 'false' :'true';
     $xVal = "exp";
     $yVal = "exp";
     $rVal = "exp";
 }
 else{
-    $isHit = checkHit($xVal, $yVal, $rVal) ;
+    $result = checkHit($xVal, $yVal, $rVal) ? 'true' : 'false' ;
 }
 //format date time and script execution time
 $timezoneOffset = $_POST['timezone'];
-$converted_isHit = $isHit ? 'true' : 'false';
+
 $currentTime = date('H:i:s', time()-$timezoneOffset*60);
 $executionTime = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"];
 //response
@@ -57,7 +57,7 @@ $jsonData = '{' .
   "\"rval\":\"$rVal\"," .
   "\"curtime\":\"$currentTime\"," .
   "\"exectime\": \"$executionTime\"," .
-  "\"hitres\":$converted_isHit" .
+  "\"result\":$result" .
   "}";
 
 echo $jsonData;

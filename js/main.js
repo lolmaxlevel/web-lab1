@@ -16,23 +16,23 @@ function sendRequest(data){
     data: data,
     dataType: "json",
     success: function(data) {
-      newRow = '<tr>';
+      let newRow = '<tr>';
       newRow += '<td>' + data.xval + '</td>';
       newRow += '<td>' + data.yval + '</td>';
       newRow += '<td>' + data.rval + '</td>';
       newRow += '<td>' + data.curtime + '</td>';
       newRow += '<td>' + data.exectime + '</td>';
-      let color = data.hitres ? "green":"red";
-      newRow += '<td>' + '<span class='+color+'>'+ data.hitres +'</span>'+ '</td>';
+      let color = data.result ? "green":"red";
+      newRow += '<td>' + '<span class='+color+'>'+ data.result +'</span>'+ '</td>';
       $('#result-table').append(newRow);
     }
   });
 }
 //function to send a request if clicked on graph
   $('#graph').on('click', function(e) {
-    var pos = findPos(this);
-    var x = e.pageX - pos.x;
-    var y = e.pageY - pos.y;
+    let pos = findPos(this);
+    let x = e.pageX - pos.x;
+    let y = e.pageY - pos.y;
     let experimental = $('.specialCB:checked').val();
     if (!(experimental || validateR())) return;
     let r_val = document.getElementById('r-text-input').value
