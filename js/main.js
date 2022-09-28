@@ -1,11 +1,14 @@
+//checks if string is an int number
 function isInt(value) {
   return !isNaN(value) &&
       parseInt(Number(value)) == value && !isNaN(parseInt(value, 10));
 }
+//checks if string is a float number
 function isFloat(str) {
   if (typeof str != "string") return false
   return !isNaN(str) && !isNaN(parseFloat(str))
 }
+//sends request to main.php with params from data
 function sendRequest(data){
   $.ajax({
     url: 'php/main.php',
@@ -25,7 +28,8 @@ function sendRequest(data){
     }
   });
 }
-  $('#example').on('click', function(e) {
+//function to send a request if clicked on graph
+  $('#graph').on('click', function(e) {
     var pos = findPos(this);
     var x = e.pageX - pos.x;
     var y = e.pageY - pos.y;
@@ -43,9 +47,9 @@ function sendRequest(data){
     }
     sendRequest(data);
   });
-
+//finds cursor pos
   function findPos(obj) {
-    var curleft = 0, curtop = 0;
+    let curleft = 0, curtop = 0;
     if (obj.offsetParent) {
       do {
         curleft += obj.offsetLeft;
@@ -55,7 +59,7 @@ function sendRequest(data){
     }
     return undefined;
   }
-  
+  //validate functions
   function validateY() {
     let Y_MAX = 5;
     let Y_MIN = -3;
@@ -88,7 +92,7 @@ function sendRequest(data){
   function validateForm() {
     return validateY() & validateR();
   }
-
+//sends request when button clicked
   $('#input-form').on('submit', function(event) {
     event.preventDefault();
     if (!validateForm()) return;

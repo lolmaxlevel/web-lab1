@@ -31,11 +31,12 @@ $type = $_POST['type'];
 $xVal = $_POST['xval'];
 $yVal = $_POST['yval'];
 $rVal = $_POST['rval'];
+//check by color if experimental is checked
 if ($_POST['type'] == 'experimental'){
     $img = imagecreatefrompng("../img/graph.png");
-    $abob = imagecolorat($img, $xVal,$yVal);
-    $colors = imagecolorsforindex($img, $abob);
-    $r = ($abob >> 16) & 0xFF;
+    $pixel = imagecolorat($img, $xVal,$yVal);
+    $colors = imagecolorsforindex($img, $pixel);
+    $r = ($pixel >> 16) & 0xFF;
     $isHit = $r == 255 ? 0:1;
     $xVal = "exp";
     $yVal = "exp";
@@ -44,10 +45,12 @@ if ($_POST['type'] == 'experimental'){
 else{
     $isHit = checkHit($xVal, $yVal, $rVal) ;
 }
+//format date time and script execution time
 $timezoneOffset = $_POST['timezone'];
 $converted_isHit = $isHit ? 'true' : 'false';
 $currentTime = date('H:i:s', time()-$timezoneOffset*60);
 $executionTime = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"];
+//response
 $jsonData = '{' .
   "\"xval\":\"$xVal\"," .
   "\"yval\":\"$yVal\"," .
