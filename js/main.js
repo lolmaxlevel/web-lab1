@@ -92,6 +92,7 @@ function sendRequest(data){
   function validateForm() {
     return validateY() & validateR();
   }
+
 //sends request when button clicked
   $('#input-form').on('submit', function(event) {
     event.preventDefault();
