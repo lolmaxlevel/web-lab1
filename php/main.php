@@ -1,5 +1,34 @@
 <?php
 
+//validate request functions
+function validateX($x): bool
+{
+    $X_MAX = 2;
+    $X_MIN = -2;
+    if (isset($x) && is_numeric($x) && $x >= $X_MIN && $x <= $X_MAX) {
+        return true;
+    }
+    else return false;
+}
+function validateY($y): bool
+{
+    $Y_MAX = 5;
+    $Y_MIN = -3;
+
+    if (isset($y) &&is_numeric($y) && $y <= $Y_MAX && $y >= $Y_MIN) {
+        return true;
+    }
+    else return false;
+}
+function validateR($r): bool
+{
+    $R_MAX = 4;
+    $R_MIN = 1;
+    if (isset($r) &&is_numeric($r) && $r<=$R_MAX && $r >= $R_MIN) {
+        return true;
+    }
+    else return false;
+}
 // Hit check functions
 function checkTriangle($xVal, $yVal, $rVal): bool
 {
@@ -27,12 +56,21 @@ function checkHit($xVal, $yVal, $rVal): bool
 }
 
 // Main
+
+if (!(validateX($_POST['xval']) && validateR($_POST['rval']) && validateY($_POST['yval'])
+    && isset($_POST['type']) && isset($_POST['timezone']))) {
+    http_response_code(400);
+    echo "низя так делать";
+    exit(2);
+}
+
 $type = $_POST['type'];
 $xVal = $_POST['xval'];
 $yVal = $_POST['yval'];
 $rVal = $_POST['rval'];
+
 //check by color if experimental is checked
-if ($_POST['type'] == 'experimental'){
+if ($type == 'experimental'){
     $img = imagecreatefrompng("../img/graph.png");
     $pixel = imagecolorat($img, $xVal,$yVal);
     $colors = imagecolorsforindex($img, $pixel);
@@ -59,5 +97,4 @@ $jsonData = '{' .
   "\"exectime\": \"$executionTime\"," .
   "\"result\":$result" .
   "}";
-
 echo $jsonData;

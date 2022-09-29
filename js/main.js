@@ -74,7 +74,6 @@ function sendRequest(data){
     }
   }
 
-  
   function validateR() {
     let R_MAX = 4;
     let R_MIN = 1;
